@@ -12,13 +12,15 @@ import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.alirezaashrafi.library.interfaces.OnBitmapLoad;
 import com.alirezaashrafi.library.interfaces.OnDrawableLoad;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,7 +46,7 @@ class PicoLoaded extends PicoCore implements OnLoad {
     private Bitmap bitmap;
 
 
-    private PicoScale scale() {
+    private Scale scale() {
         return core().picoScale;
     }
 
@@ -62,10 +64,12 @@ class PicoLoaded extends PicoCore implements OnLoad {
         if (color!=-1){
             changeBitmapColor(color);
         }
-        // todo changeBitmapColor(bitmap,Color.parseColor("#44ff55"));
-        //setColor();
+
+
         resize();
-        this.load();
+
+
+        this.load(bitmap);
     }
 
     private void resize() {
@@ -85,14 +89,19 @@ class PicoLoaded extends PicoCore implements OnLoad {
         }
     }
 
+
     private void runOnUiThread(Runnable r) {
         handler.post(r);
+
     }
 
-
     @Override
-    public void load() {
-        handler = new Handler(core().context.getMainLooper());
+    public void load(final Bitmap bitmap) {
+        core().picoCallback.complete(bitmap);
+        cache(bitmap);
+        if (handler==null){
+            handler = new Handler(core().context.getMainLooper());
+        }
 
         runOnUiThread(new Runnable() {
             @Override
@@ -115,7 +124,6 @@ class PicoLoaded extends PicoCore implements OnLoad {
 
 
                     if (core().scaleType != null) {
-                        Log.i(TAG, "run: ");
                         imageView.setScaleType(core().scaleType);
                     }
 
@@ -140,6 +148,33 @@ class PicoLoaded extends PicoCore implements OnLoad {
 
     }
 
+    private void cache(Bitmap bitmap) {
+        if (scale().smartCache){
+            PicoWrite picoWrite = new PicoWrite(core());
+            String path = context().getFilesDir().getAbsolutePath() + File.separator + "alirezaashrafi";
+            File file = new File(path);
+
+            picoWrite.write(file,bitmap, Bitmap.CompressFormat.PNG,true,100);
+
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            byte[] byteArray = stream.toByteArray();
+            try {
+                new CacheManager().cacheData(context(),byteArray,"aaadfdfs");
+            } catch (IOException e) {
+
+            }
+        }
+        /*if (scale().smartCache||scale().customCache){
+            String file_name = ""
+            if (scale().file_name.equals("")){
+                if (scale().useformat)
+                //اسم برای فایل انتخاب شده
+            }else {
+                //اسم برای فایل انتخاب نشده
+            }
+        }*/
+    }
 
 
     Drawable getDrawable() {
@@ -155,10 +190,10 @@ class PicoLoaded extends PicoCore implements OnLoad {
 
     private void setMax(int maxImageSize) {
         float ratio = Math.min(
-                (float) maxImageSize / bitmap.getWidth(),
-                (float) maxImageSize / bitmap.getHeight());
-        int width = Math.round((float) ratio * bitmap.getWidth());
-        int height = Math.round((float) ratio * bitmap.getHeight());
+                         (float) maxImageSize / bitmap.getWidth()   ,
+                         (float) maxImageSize / bitmap.getHeight()) ;
+        int  width = Math.round((float) ratio * bitmap.getWidth())  ;
+        int height = Math.round((float) ratio * bitmap.getHeight()) ;
 
         bitmap = Bitmap.createScaledBitmap(bitmap, width, height, true);
     }

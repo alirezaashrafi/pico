@@ -19,18 +19,21 @@ public class Pico {
 
     private PicoProtected picoProtected;
 
-    private PicoScale getScale() {
+    private Scale getScale() {
         return this.picoProtected.picoScale;
     }
 
+    public Pico (Context context){
+        this.picoProtected = new PicoProtected(context);
+
+    }
     public static Pico with(Context context) {
-        Pico pico = new Pico();
-        pico.picoProtected = new PicoProtected(context);
+        Pico pico = new Pico(context);
 
         return pico;
     }
 
-    public final PicoScale from(String url) {
+    public final Scale from(String url) {
         try {
             this.from(new URL(url));
         } catch (MalformedURLException var3) {
@@ -41,7 +44,7 @@ public class Pico {
     }
 
 
-    public final PicoScale from(URL url) {
+    public final Scale from(URL url) {
         if (url == null) {
             throw (new IllegalArgumentException("The url is not valid"));
         } else {
@@ -51,7 +54,7 @@ public class Pico {
     }
 
 
-    public final PicoScale from(Drawable drawable) {
+    public final Scale from(Drawable drawable) {
         if (drawable == null) {
             throw (new IllegalArgumentException("Drawable should not be null"));
         } else {
@@ -61,7 +64,7 @@ public class Pico {
     }
 
 
-    public final PicoScale from(Bitmap bitmap) {
+    public final Scale from(Bitmap bitmap) {
         if (bitmap == null) {
             throw (new IllegalArgumentException("picobitmap should not be null"));
         } else {
@@ -71,7 +74,7 @@ public class Pico {
     }
 
 
-    public final PicoScale from(Uri uri) {
+    public final Scale from(Uri uri) {
         if (uri == null) {
             throw (new IllegalArgumentException("uri should not be null"));
         } else {
@@ -81,7 +84,7 @@ public class Pico {
     }
 
 
-    public final PicoScale from(File file) {
+    public final Scale from(File file) {
         if (file == null) {
             throw (new IllegalArgumentException("file should not be null"));
         } else {

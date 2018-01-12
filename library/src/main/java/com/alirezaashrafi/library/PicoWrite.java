@@ -14,7 +14,7 @@ import java.io.IOException;
  * pico Created by AlirezaAshrafi on 1/10/2018.
  */
 
-public class PicoWrite extends PicoCore {
+ class PicoWrite extends PicoCore {
 
     PicoWrite(PicoProtected picoProtected) {
         super(picoProtected);
@@ -22,24 +22,24 @@ public class PicoWrite extends PicoCore {
 
 
     @SuppressLint("StaticFieldLeak")
-    public void write(final File imageFile,
+     void write(final File imageFile,
                       final Bitmap image,
                       final Bitmap.CompressFormat format,
                       boolean shouldOverwrite, final int quality) {
 
         if (imageFile.isDirectory()) {
-            core().picoCallback.onError(new PicoError("the specified path points to a directory, " +
+            core().picoCallback.error(new PicoError("the specified path points to a directory, " +
                     "should be a file").setErrorCode(PicoError.ERROR_IS_DIRECTORY));
             return;
         }
 
         if (imageFile.exists()) {
             if (!shouldOverwrite) {
-                core().picoCallback.onError(new PicoError("file already exists, " +
+                core().picoCallback.error(new PicoError("file already exists, " +
                         "write operation cancelled").setErrorCode(PicoError.ERROR_FILE_EXISTS));
                 return;
             } else if (!imageFile.delete()) {
-                core().picoCallback.onError(new PicoError("could not delete existing file, " +
+                core().picoCallback.error(new PicoError("could not delete existing file, " +
                         "most likely the write permission was denied")
                         .setErrorCode(PicoError.ERROR_PERMISSION_DENIED));
                 return;
@@ -48,20 +48,20 @@ public class PicoWrite extends PicoCore {
 
         File parent = imageFile.getParentFile();
         if (!parent.exists() && !parent.mkdirs()) {
-            core().picoCallback.onError(new PicoError("could not create parent directory")
+            core().picoCallback.error(new PicoError("could not create parent directory")
                     .setErrorCode(PicoError.ERROR_PERMISSION_DENIED));
             return;
         }
 
         try {
             if (!imageFile.createNewFile()) {
-                core().picoCallback.onError(new PicoError("could not create file")
+                core().picoCallback.error(new PicoError("could not create file")
                         .setErrorCode(PicoError.ERROR_PERMISSION_DENIED));
                 return;
             }
         } catch (IOException e) {
            
-            core().picoCallback.onError(new PicoError(e).setErrorCode(PicoError.ERROR_GENERAL_EXCEPTION));
+            core().picoCallback.error(new PicoError(e).setErrorCode(PicoError.ERROR_GENERAL_EXCEPTION));
             return;
         }
 
@@ -93,7 +93,7 @@ public class PicoWrite extends PicoCore {
 
             @Override
             protected void onCancelled() {
-                core().picoCallback.onError(error);
+                core().picoCallback.error(error);
             }
 
             @Override

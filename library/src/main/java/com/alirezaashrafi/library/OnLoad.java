@@ -6,7 +6,7 @@ import android.graphics.Bitmap;
  * pico Created by AlirezaAshrafi on 1/11/2018.
  */
 
- interface OnLoad
+interface OnLoad
 {
-    void load();
+    void load(Bitmap bitmap);
 }

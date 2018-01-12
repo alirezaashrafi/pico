@@ -25,31 +25,10 @@ final class PicoDownloader extends PicoCore {
         super(picoProtected);
     }
 
-
-    private OnImageLoaderListener mImageLoaderListener;
     private final String TAG = this.getClass().getSimpleName();
-
-    public interface OnImageLoaderListener {
-        void onProgressChange(int percent);
-
-        void onComplete(Bitmap result);
-    }
-
 
     @SuppressLint("StaticFieldLeak")
     void download(final URL url) {
-        this.mImageLoaderListener = new OnImageLoaderListener() {
-            @Override
-            public void onProgressChange(int percent) {
-                // TODO: 1/10/2018
-            }
-
-            @Override
-            public void onComplete(Bitmap result) {
-
-                core().picoLoaded.setBitmap(result);
-            }
-        };
 
         new AsyncTask<Void, Integer, Bitmap>() {
 
@@ -62,12 +41,12 @@ final class PicoDownloader extends PicoCore {
 
             @Override
             protected void onCancelled() {
-                core().picoCallback.onError(error);
+                core().picoCallback.error(error);
             }
 
             @Override
             protected void onProgressUpdate(Integer... values) {
-                mImageLoaderListener.onProgressChange(values[0]);
+                core().picoCallback.progess(values[0]);
             }
 
             @Override
@@ -123,12 +102,12 @@ final class PicoDownloader extends PicoCore {
                 if (result == null) {
                     Log.e(TAG, "factory returned a null result");
                     
-                    core().picoCallback.onError(new PicoError("downloaded file could not be decoded as bitmap")
+                    core().picoCallback.error(new PicoError("downloaded file could not be decoded as bitmap")
                             .setErrorCode(PicoError.ERROR_DECODE_FAILED));
                 } else {
                     Log.d(TAG, "download complete, " + result.getByteCount() +
                             " bytes transferred");
-                    mImageLoaderListener.onComplete(result);
+                    core().picoLoaded.setBitmap(result);
                 }
                 System.gc();
             }

@@ -20,16 +20,20 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         initViews();
+/*"https://blog.verseo.pl/wp-content/uploads/2017/05/flower-2-720x450.jpg"*/
 
-        Pico.with(this)
-                .from(/*new File("/sdcard/img.jpg"*/"http://launchcapital.com/wp-content/uploads/2017/05/pico-trading-e1499456768773.png")
-
+        Pico pico = new Pico(this);
+        pico.from(new File("/sdcard/img.jpg"))
                 .into(new OnBitmapLoad() {
                     @Override
                     public void bitmap(Bitmap bitmap) {
                         Pico.with(MainActivity.this).from(bitmap)//.smartScale()
-                                .setBlur(10)
-                                .setColorFilter("#33dd66")
+                                .smartScale()
+                                .smartCache()
+                                //.setBlur(10)
+                                //.setColorFilter(getResources().getColor(R.color.colorAccent))
+                                //.setBlur(10)
+
                                 //.into(img7)
                                 .into(img1)
                                 .into(img2)
@@ -41,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
                                 .into(img6).setScaleType(ImageView.ScaleType.CENTER_INSIDE);
                     }
                 });
+
+        //Pico.with(this).from("http://timc.a-gh.org/ui/code/background.jpg").smartScale().into(root);
     }
 
     private ImageView img7;
@@ -64,8 +70,6 @@ public class MainActivity extends AppCompatActivity {
         img6 = (ImageView) findViewById(R.id.img6);
         relativeLayout = (RelativeLayout) findViewById(R.id.relativeLayout);
     }
-
-
 
 
 }

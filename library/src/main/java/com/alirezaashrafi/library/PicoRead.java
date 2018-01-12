@@ -11,21 +11,17 @@ import java.io.File;
  * pico Created by AlirezaAshrafi on 1/10/2018.
  */
 
-public class PicoRead {
-
-    public static Bitmap readFromDisk(File imageFile) {
-        if (!imageFile.exists() || imageFile.isDirectory()) return null;
-        return BitmapFactory.decodeFile(imageFile.getAbsolutePath());
-    }
+ class PicoRead {
 
 
-    public interface OnImageReadListener {
+
+     interface OnImageReadListener {
         void onImageRead(Bitmap bitmap);
 
         void onReadFailed();
     }
     @SuppressLint("StaticFieldLeak")
-    public void readFromDiskAsync(File imageFile, final OnImageReadListener listener) {
+    void readFromDiskAsync(File imageFile, final OnImageReadListener listener) {
         new AsyncTask<String, Void, Bitmap>() {
             @Override
             protected Bitmap doInBackground(String... params) {
