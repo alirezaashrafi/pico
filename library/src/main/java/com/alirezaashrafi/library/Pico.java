@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 
 
+
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -25,13 +26,13 @@ public class Pico {
 
     public Pico (Context context){
         this.picoProtected = new PicoProtected(context);
-
     }
+
     public static Pico with(Context context) {
         Pico pico = new Pico(context);
-
         return pico;
     }
+
 
     public final Scale from(String url) {
         try {

@@ -9,6 +9,8 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 
+import com.alirezaashrafi.library.public_class.PicoLog;
+
 import java.io.File;
 import java.net.URL;
 
@@ -83,6 +85,8 @@ class PicoBitmap extends PicoCore {
                     options.inPreferredConfig = Bitmap.Config.ARGB_8888;
                     load(BitmapFactory.decodeFile(file.getPath(), options));
                 } else {
+
+                    core().picoCallback.log(new PicoLog("file not exists"));
                     // TODO: 1/10/2018
                 }
 
@@ -100,7 +104,6 @@ class PicoBitmap extends PicoCore {
             @Override
             protected Void doInBackground(Void... voids) {
                 load(bitmap);
-
                 return null;
             }
         }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
