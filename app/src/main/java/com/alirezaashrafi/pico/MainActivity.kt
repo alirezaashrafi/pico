@@ -14,6 +14,7 @@ class MainActivity : AppCompatActivity() {
     var imgLink4 = "https://raw.githubusercontent.com/alirezaashrafi/pico/master/images/img4.png"
     var imgLink5 = "https://raw.githubusercontent.com/alirezaashrafi/pico/master/images/img5.png"
     var imgLink6 = "https://raw.githubusercontent.com/alirezaashrafi/pico/master/images/img6.png"
+    var logo = "https://raw.githubusercontent.com/alirezaashrafi/pico/master/app/src/main/res/drawable/logo.png"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
