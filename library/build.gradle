@@ -27,8 +27,6 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.squareup.picasso:picasso:2.5.2' //remove
-
     testImplementation 'junit:junit:4.12'
 }
 
