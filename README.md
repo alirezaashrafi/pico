@@ -1,5 +1,7 @@
-# pico
-android image downloading and caching library
+<center><p align="center">
+  <h1>PICO android image downloader library</h1>
+</p></center>
+
 
 
 <center>
@@ -8,3 +10,4 @@ android image downloading and caching library
   <img src="https://raw.githubusercontent.com/alirezaashrafi/pico/master/app/src/main/res/drawable/logo.png" width="50%"  />
 </p>
 </center>
+___

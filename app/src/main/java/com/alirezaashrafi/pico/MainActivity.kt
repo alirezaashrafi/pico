@@ -11,7 +11,7 @@ class MainActivity : AppCompatActivity() {
     var imgLink1 = "https://raw.githubusercontent.com/alirezaashrafi/pico/master/images/img1.png"
     var imgLink2 = "https://raw.githubusercontent.com/alirezaashrafi/pico/master/images/img2.png"
     var imgLink3 = "https://raw.githubusercontent.com/alirezaashrafi/pico/master/images/img3.png"
-    var imgLink4 = "https://raw.githubusercontent.com/alirezaashrafi/pico/master/images/img4.png"
+    var imgLink4 = "https://raw.githubusercontent.com/alirezaashrafi/pico/master/images/img4.jpg"
     var imgLink5 = "https://raw.githubusercontent.com/alirezaashrafi/pico/master/images/img5.png"
     var imgLink6 = "https://raw.githubusercontent.com/alirezaashrafi/pico/master/images/img6.png"
     var logo = "https://raw.githubusercontent.com/alirezaashrafi/pico/master/app/src/main/res/drawable/logo.png"
@@ -20,9 +20,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        Pico.with(this)
-                .from(imgLink1)
-                .into(img1)
+        Pico.with(this).from(imgLink1).into(img1)
+        Pico.with(this).from(imgLink2).into(img2)
+        Pico.with(this).from(imgLink3).into(img3)
+        Pico.with(this).from(imgLink4).into(img4)
+        Pico.with(this).from(imgLink5).into(img5)
+        Pico.with(this).from(imgLink6).into(img6)
 
 
     }
