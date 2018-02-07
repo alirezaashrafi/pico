@@ -2,8 +2,6 @@ package com.alirezaashrafi.library;
 
 import android.content.Context;
 
-import com.squareup.picasso.Picasso;
-
 /**
  * Created by AlirezaAshrafi on 1/5/2018.
  */
