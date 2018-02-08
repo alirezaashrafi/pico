@@ -30,6 +30,8 @@ final class PicoDownloader extends PicoCore {
     @SuppressLint("StaticFieldLeak")
     void download(final URL url) {
 
+
+
         new AsyncTask<Void, Integer, Bitmap>() {
 
             private PicoError error;

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,11 +20,11 @@ final class PicoProtected {
         this.picoDownloader = new PicoDownloader(this);
         this.picoBitmap = new PicoBitmap(this);
         this.picoCallback = new PicoCallback(this);
-        this.picoScale = new Scale(this);
+        this.onlineLoad1 = new OnlineLoad1(this);
     }
 
     ImageView.ScaleType scaleType = null;
-    Scale picoScale;
+    OnlineLoad1 onlineLoad1;
 
     PicoCallback picoCallback;
     PicoDownloader picoDownloader;
@@ -37,5 +38,6 @@ final class PicoProtected {
     List<ImageView> imageViews = new ArrayList<>();
     List<View> views = new ArrayList<>();
 
+    URL url;
 
 }

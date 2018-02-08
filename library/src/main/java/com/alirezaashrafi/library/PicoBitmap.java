@@ -8,10 +8,12 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.alirezaashrafi.library.public_class.PicoLog;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 
 /**
@@ -109,13 +111,36 @@ class PicoBitmap extends PicoCore {
         }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
+    private final String TAG = this.getClass().getName();
+
 
     void bitmap(final URL url) {
+
 
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
-                core().picoDownloader.download(url);
+                Log.i(TAG, "doInBackground: "+url.toString());
+
+                new Hash(core().url.toString(), new Hash.OnHash() {
+                    @Override
+                    public void hash(String code) {
+                        try {
+
+
+                            Bitmap bitmap  = SmartCache.load(core().context,code);
+                            if (bitmap!=null){
+                                bitmap(SmartCache.load(core().context,code));
+                            }else {
+                                core().picoDownloader.download(url);
+
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                });
 
                 return null;
             }

@@ -41,13 +41,14 @@ class PicoLoaded extends PicoCore implements OnLoad {
     PicoLoaded(PicoProtected picoProtected) {
         super(picoProtected);
     }
+
     private Drawable drawable;
     private Handler handler;
     private Bitmap bitmap;
 
 
-    private Scale scale() {
-        return core().picoScale;
+    private OnlineLoad1 scale() {
+        return core().onlineLoad1;
     }
 
     public void setBitmap(Bitmap bit) {
@@ -61,7 +62,7 @@ class PicoLoaded extends PicoCore implements OnLoad {
             rotateBitmap(rotate);
         }
 
-        if (color!=-1){
+        if (color != -1) {
             changeBitmapColor(color);
         }
 
@@ -84,7 +85,7 @@ class PicoLoaded extends PicoCore implements OnLoad {
 
         } else if (scale().setScalePercent || scale().setScale) {
             scaleDown(scale().scale);
-        }else if (scale().setMaxWidthHeight){
+        } else if (scale().setMaxWidthHeight) {
             setMax(scale().max);
         }
     }
@@ -99,7 +100,7 @@ class PicoLoaded extends PicoCore implements OnLoad {
     public void load(final Bitmap bitmap) {
         core().picoCallback.complete(bitmap);
         cache(bitmap);
-        if (handler==null){
+        if (handler == null) {
             handler = new Handler(core().context.getMainLooper());
         }
 
@@ -148,32 +149,39 @@ class PicoLoaded extends PicoCore implements OnLoad {
 
     }
 
-    private void cache(Bitmap bitmap) {
-        if (scale().smartCache){
-            PicoWrite picoWrite = new PicoWrite(core());
+    private void cache(final Bitmap bitmap) {
+        if (scale().smartCache) {
+
+            new Hash(core().url.toString(), new Hash.OnHash() {
+                @Override
+                public void hash(String code) {
+                    try {
+
+                        SmartCache.save(context(), bitmap,code );
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            });
+
+        } else if (scale().customCache) {
+           /* PicoWrite picoWrite = new PicoWrite(core());
             String path = context().getFilesDir().getAbsolutePath() + File.separator + "alirezaashrafi";
             File file = new File(path);
 
-            picoWrite.write(file,bitmap, Bitmap.CompressFormat.PNG,true,100);
+            picoWrite.write(file, bitmap, Bitmap.CompressFormat.PNG, true, 100);
 
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
             byte[] byteArray = stream.toByteArray();
             try {
-                new CacheManager().cacheData(context(),byteArray,"aaadfdfs");
+                new SmartCache().save(context(), byteArray, "aaadfdfs");
             } catch (IOException e) {
 
-            }
+            }*/
         }
-        /*if (scale().smartCache||scale().customCache){
-            String file_name = ""
-            if (scale().file_name.equals("")){
-                if (scale().useformat)
-                //اسم برای فایل انتخاب شده
-            }else {
-                //اسم برای فایل انتخاب نشده
-            }
-        }*/
+
     }
 
 
@@ -190,10 +198,10 @@ class PicoLoaded extends PicoCore implements OnLoad {
 
     private void setMax(int maxImageSize) {
         float ratio = Math.min(
-                         (float) maxImageSize / bitmap.getWidth()   ,
-                         (float) maxImageSize / bitmap.getHeight()) ;
-        int  width = Math.round((float) ratio * bitmap.getWidth())  ;
-        int height = Math.round((float) ratio * bitmap.getHeight()) ;
+                (float) maxImageSize / bitmap.getWidth(),
+                (float) maxImageSize / bitmap.getHeight());
+        int width = Math.round((float) ratio * bitmap.getWidth());
+        int height = Math.round((float) ratio * bitmap.getHeight());
 
         bitmap = Bitmap.createScaledBitmap(bitmap, width, height, true);
     }

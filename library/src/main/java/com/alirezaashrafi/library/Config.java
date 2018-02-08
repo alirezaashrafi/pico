@@ -6,7 +6,7 @@ import android.graphics.Color;
  * pico Created by AlirezaAshrafi on 1/10/2018.
  */
 
-public class Config extends CacheConfig {
+public class Config extends Into {
     Config(PicoProtected picoProtected) {
         super(picoProtected);
     }

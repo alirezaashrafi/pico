@@ -6,7 +6,6 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 
 
-
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -20,8 +19,8 @@ public class Pico {
 
     private PicoProtected picoProtected;
 
-    private Scale getScale() {
-        return this.picoProtected.picoScale;
+    private OnlineLoad1 getOnload() {
+        return this.picoProtected.onlineLoad1;
     }
 
     public Pico (Context context){
@@ -34,24 +33,28 @@ public class Pico {
     }
 
 
-    public final Scale from(String url) {
+    public final OnlineLoad1 from(String url) {
         try {
             this.from(new URL(url));
         } catch (MalformedURLException var3) {
             this.from((URL) null);
         }
 
-        return this.getScale();
+        return this.getOnload();
     }
 
 
-    public final Scale from(URL url) {
+    public final OnlineLoad1 from(URL url) {
         if (url == null) {
             throw (new IllegalArgumentException("The url is not valid"));
         } else {
+
+
+            picoProtected.url = url;
             this.picobitmap().bitmap(url);
-            return this.getScale();
         }
+        return this.getOnload();
+
     }
 
 
@@ -60,7 +63,7 @@ public class Pico {
             throw (new IllegalArgumentException("Drawable should not be null"));
         } else {
             this.picobitmap().bitmap(drawable);
-            return this.getScale();
+            return this.getOnload();
         }
     }
 
@@ -70,7 +73,7 @@ public class Pico {
             throw (new IllegalArgumentException("picobitmap should not be null"));
         } else {
             this.picobitmap().bitmap(bitmap);
-            return this.getScale();
+            return this.getOnload();
         }
     }
 
@@ -80,7 +83,7 @@ public class Pico {
             throw (new IllegalArgumentException("uri should not be null"));
         } else {
             this.picobitmap().bitmap(uri);
-            return this.getScale();
+            return this.getOnload();
         }
     }
 
@@ -90,14 +93,11 @@ public class Pico {
             throw (new IllegalArgumentException("file should not be null"));
         } else {
             this.picobitmap().bitmap(file);
-            return this.getScale();
+            return this.getOnload();
         }
     }
-
 
     private final PicoBitmap picobitmap() {
         return picoProtected.picoBitmap;
     }
-
-
 }
