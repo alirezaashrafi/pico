@@ -4,10 +4,7 @@
     <b>
       <h1>PICO android image downloader library</h1>
     </b>
-    <br>
-        <br>
-            <br>
-    <img src="https://raw.githubusercontent.com/alirezaashrafi/pico/master/images/github.png" width="80%"/>
+    <img src="https://raw.githubusercontent.com/alirezaashrafi/pico/master/images/header.png" width="80%"/>
   </p>
 </center>
 
