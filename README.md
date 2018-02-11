@@ -2,9 +2,11 @@
 <center>
   <p align="center">
     <b>
-      <font size="6">PICO android image downloader library</font>
+      <h1>PICO android image downloader library</h1>
     </b>
     <br>
+        <br>
+            <br>
     <img src="https://raw.githubusercontent.com/alirezaashrafi/pico/master/images/github.png" width="80%"/>
   </p>
 </center>
