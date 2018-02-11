@@ -51,11 +51,17 @@ class PicoLoaded extends PicoCore implements OnLoad {
         return core().onlineLoad1;
     }
 
-    public void setBitmap(Bitmap bit) {
+    public void setBitmap(final Bitmap bit) {
         this.bitmap = bit;
 
         if (blurRadius != -1) {
-            bitmap = new PicoBlor().fastblur(bitmap, blurRadius);
+
+              new PicoBlor().fastblur(bitmap, blurRadius, new PicoBlor.OnBitmapBlur() {
+                @Override
+                public void blur(Bitmap bitmap) {
+                    bit = bitmap;
+                }
+            });
         }
 
         if (rotate != -1) {

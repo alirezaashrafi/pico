@@ -20,12 +20,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        Pico.with(this).from(imgLink1).setColorFilter("#333355").into(img1)
-        Pico.with(this).from(imgLink2).setColorFilter("#333355").into(img2)
-        Pico.with(this).from(imgLink3).setColorFilter("#333355").into(img3)
-        Pico.with(this).from(imgLink4).setColorFilter("#333355").into(img4)
-        Pico.with(this).from(imgLink5).setColorFilter("#333355").into(img5)
-        Pico.with(this).from(imgLink6).setColorFilter("#333355").into(img6)
+        Pico.with(this).from(imgLink1).setBlur(3).into(img1)
+        Pico.with(this).from(imgLink2).setBlur(3).into(img2)
+        Pico.with(this).from(imgLink3).setBlur(3).into(img3)
+        Pico.with(this).from(imgLink4).setBlur(3).into(img4)
+        Pico.with(this).from(imgLink5).setBlur(3).into(img5)
+        Pico.with(this).from(imgLink6).setBlur(3).into(img6)
 
 
     }
