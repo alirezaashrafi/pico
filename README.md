@@ -5,7 +5,7 @@
       <font size="6">PICO android image downloader library</font>
     </b>
     <br>
-    <img src="https://raw.githubusercontent.com/alirezaashrafi/pico/master/app/src/main/res/drawable/logo.png" width="30%"/>
+    <img src="https://raw.githubusercontent.com/alirezaashrafi/pico/master/images/github.png" width="80%"/>
   </p>
 </center>
 
@@ -35,7 +35,7 @@ ___
 ```xml
   <repositories>
     <repository>
-        <id>jitpack.io</id>
+      <id>jitpack.io</id>
       <url>https://jitpack.io</url>
     </repository>
   </repositories>
