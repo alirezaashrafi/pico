@@ -56,10 +56,10 @@ class PicoLoaded extends PicoCore implements OnLoad {
 
         if (blurRadius != -1) {
 
-              new PicoBlor().fastblur(bitmap, blurRadius, new PicoBlor.OnBitmapBlur() {
+            PicoBlor.fastblur(bitmap, blurRadius, new PicoBlor.OnBitmapBlur() {
                 @Override
                 public void blur(Bitmap bitmap) {
-                    bit = bitmap;
+                    core().picoLoaded.bitmap  = bitmap;
                 }
             });
         }
@@ -163,7 +163,7 @@ class PicoLoaded extends PicoCore implements OnLoad {
                 public void hash(String code) {
                     try {
 
-                        SmartCache.save(context(), bitmap,code );
+                        SmartCache.save(context(), bitmap, code);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
