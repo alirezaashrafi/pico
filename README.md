@@ -10,8 +10,7 @@
 
 ___
 [![](https://jitpack.io/v/alirezaashrafi/pico.svg)](https://jitpack.io/#alirezaashrafi/pico)
-
-
+#### Do not forget the star:)⭐️
 
 ## <i class="icon-file"></i> How to download pico
 #### Gradle
